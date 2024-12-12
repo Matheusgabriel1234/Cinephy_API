@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=${DB_NAME}'
+      - 'POSTGRES_PASSWORD=${DB_PASSWORD}'
+      - 'POSTGRES_USER=${DB_USERNAME}'
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - movie-network
+
+  app:
+   build:
+     context: .
+     dockerfile: DockerFile
+   container_name: Cinephy_container
+   environment:
+     - SERVER_PORT=8080
+     - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${DB_NAME}
+     - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+     - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+   ports:
+     - "8080:8080"
+   depends_on:
+     - postgres
+   networks:
+    - movie-network
+volumes:
+  db-data:
+networks:
+  movie-network:
+   driver: bridge
+
+
