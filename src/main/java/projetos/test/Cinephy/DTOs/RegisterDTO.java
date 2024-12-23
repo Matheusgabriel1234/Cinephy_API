@@ -15,7 +15,7 @@ public class RegisterDTO {
     @Size(min = 8,message = "A senha deve conter oito caracteres")
     private String password;
     @NotBlank(message = "A data de nascimento é obrigatória")
-    private LocalDate birthDate;
+    private String birthDate;
     @NotBlank(message = "O nome de usuario é obrigatório")
     private String nickName;
 
@@ -27,9 +27,13 @@ public class RegisterDTO {
 
     public void setPassword(String password) {this.password = password;}
 
-    public LocalDate getBirthDate() {return birthDate;}
+    public @NotBlank(message = "A data de nascimento é obrigatória") String getBirthDate() {
+        return birthDate;
+    }
 
-    public void setBirthDate(LocalDate birthDate) {this.birthDate = birthDate;}
+    public void setBirthDate(@NotBlank(message = "A data de nascimento é obrigatória") String birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public String getNickName() {return nickName;}
 
