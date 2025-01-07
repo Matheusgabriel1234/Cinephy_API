@@ -10,7 +10,7 @@ import projetos.test.Cinephy.repository.UserRepository;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private UserRepository repository;
+    private final UserRepository repository;
 
     public CustomUserDetailsService(UserRepository repository) {
         this.repository = repository;

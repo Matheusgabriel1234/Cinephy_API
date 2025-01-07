@@ -18,23 +18,28 @@ public class MovieEntity {
     private String title;
     private String year;
     private String type;
+    @OneToMany(mappedBy = "movie",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReviewEntity> reviews;
 
 
-
-
-
-
-
-
-    public MovieEntity(Long id, String imdbId, String title, String year, String type) {
-        this.id = id;
-        this.imdbId = imdbId;
-        this.title = title;
-        this.year = year;
+    public MovieEntity(List<ReviewEntity> reviews, String type, String year, String title, String imdbId, Long id) {
+        this.reviews = reviews;
         this.type = type;
+        this.year = year;
+        this.title = title;
+        this.imdbId = imdbId;
+        this.id = id;
     }
 
     public MovieEntity() {
+    }
+
+    public List<ReviewEntity> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 
     public Long getId() {

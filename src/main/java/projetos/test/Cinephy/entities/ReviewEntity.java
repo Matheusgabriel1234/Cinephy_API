@@ -21,16 +21,16 @@ public class ReviewEntity {
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
 
-    private String comments;
+    private String comment;
 
     private double rating;
 
-    public ReviewEntity(double rating, String comments, MovieEntity movie, UserEntity user, Long id) {
-        this.rating = rating;
-        this.comments = comments;
-        this.movie = movie;
-        this.user = user;
+    public ReviewEntity(Long id, UserEntity user, MovieEntity movie, String comment, double rating) {
         this.id = id;
+        this.user = user;
+        this.movie = movie;
+        this.comment = comment;
+        this.rating = rating;
     }
 
     public ReviewEntity(){
@@ -57,12 +57,12 @@ public class ReviewEntity {
         this.movie = movie;
     }
 
-    public String getComments() {
-        return comments;
+    public String getComment() {
+        return comment;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public double getRating() {
