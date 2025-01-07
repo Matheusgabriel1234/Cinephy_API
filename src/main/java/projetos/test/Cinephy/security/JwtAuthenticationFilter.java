@@ -46,7 +46,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if(jwt != null && jwtUtils.validateToken(jwt)){
                 logger.debug("Token jtw encontrado {}",jwt);
                 String email = jwtUtils.getUserFromToken(jwt);
-                UserEntity user = repository.findUserByEmail(email).orElseThrow(() -> new RuntimeException("Email não encontrado"));
+                UserEntity user = repository.findUserByEmail(email);
+
+                if(user == null){
+                    throw new RuntimeException("Ocorreu um erro na autenticação do email");
+                }
+
                 UserDetails details = User.withUsername(user.getEmail()).password(user.getPassword()).authorities(new ArrayList<>())
                         .build();
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(details,null,details.getAuthorities());

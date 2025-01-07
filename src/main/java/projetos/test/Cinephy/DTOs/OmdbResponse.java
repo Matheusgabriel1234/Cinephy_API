@@ -3,6 +3,8 @@ package projetos.test.Cinephy.DTOs;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 
 public class OmdbResponse {
 
@@ -14,6 +16,7 @@ public class OmdbResponse {
     private String type;
     @JsonProperty("Year")
     private String year;
+
 
     public String getImdbId() {
         return imdbId;
@@ -46,4 +49,6 @@ public class OmdbResponse {
     public void setYear(String year) {
         this.year = year;
     }
+
+
 }

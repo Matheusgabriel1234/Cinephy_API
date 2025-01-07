@@ -2,6 +2,7 @@ package projetos.test.Cinephy.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,13 @@ public class MovieEntity {
     private String title;
     private String year;
     private String type;
+
+
+
+
+
+
+
 
     public MovieEntity(Long id, String imdbId, String title, String year, String type) {
         this.id = id;

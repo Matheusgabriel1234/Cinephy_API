@@ -19,14 +19,14 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
- private final static Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+    private final static Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
 
-private final Key key;
+    private final Key key;
 
 
 
-private final long expiration;
+    private final long expiration;
 
     public JwtUtils( @Value("${jwt.secret}") String jwtSecret ,@Value("${jwt.validation}") long expiration) {
         this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
@@ -36,33 +36,33 @@ private final long expiration;
 
 
     public String generateToken(UserDetails userDetails){
-     String token  = Jwts.builder()
-            .setSubject(userDetails.getUsername())
-            .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + expiration))
-            .signWith(key, SignatureAlgorithm.HS256).compact();
-     logger.debug("Generated JWT token for user: {}", userDetails.getUsername());
-     return token;
-}
+        String token  = Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime() + expiration))
+                .signWith(key, SignatureAlgorithm.HS256).compact();
+        logger.debug("Generated JWT token for user: {}", userDetails.getUsername());
+        return token;
+    }
 
-     public String getUserFromToken(String token){
+    public String getUserFromToken(String token){
         String username = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-                logger.debug("Extracted username '{}' from JWT token", username);
-                return username;
-     }
+        logger.debug("Extracted username '{}' from JWT token", username);
+        return username;
+    }
 
-     public boolean validateToken(String authToken){
+    public boolean validateToken(String authToken){
         try {
             Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(authToken);
-                    logger.info("Jwt Token is valid");
-                    return true;
+            logger.info("Jwt Token is valid");
+            return true;
         }catch(SecurityException err){
             logger.error("Assinatura jwt Invalida: '{}' ",err.getMessage());
         } catch (MalformedJwtException e){
@@ -76,6 +76,6 @@ private final long expiration;
         }
 
         return false;
-     }
+    }
 
 }

@@ -25,8 +25,8 @@ public class SecurityConfig {
 
 
 
-    public SecurityConfig( UserRepository repository, JwtUtils util, JwtUtils util1) {
-        this.util = util1;
+    public SecurityConfig( UserRepository repository, JwtUtils util) {
+        this.util = util;
         this.repository = repository;
 
     }
@@ -35,7 +35,7 @@ public class SecurityConfig {
     public SecurityFilterChain config (HttpSecurity http) throws Exception{
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**","/api/movies/search").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll().anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     return http.build();
     }

@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -34,13 +35,22 @@ public class UserEntity implements UserDetails {
 
     private String password;
 
+    @ManyToMany
+    @JoinTable(
+            name = "Top-Movie-tb",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private List<MovieEntity> topMovies = new ArrayList<>();
 
-    public UserEntity(Long id, String nickName, LocalDate birthDate, String email, String password) {
+
+    public UserEntity(Long id, String nickName, LocalDate birthDate, String email, String password, List<MovieEntity> topMovies) {
         this.id = id;
         this.nickName = nickName;
         this.birthDate = birthDate;
         this.email = email;
         this.password = password;
+        this.topMovies = topMovies;
     }
 
     public UserEntity() {
@@ -114,6 +124,15 @@ public class UserEntity implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public List<MovieEntity> getTopMovies() {
+        return topMovies;
+    }
+
+    public void setTopMovies(List<MovieEntity> topMovies) {
+        this.topMovies = topMovies;
     }
 
     @Override

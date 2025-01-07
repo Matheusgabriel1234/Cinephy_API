@@ -1,5 +1,6 @@
 package projetos.test.Cinephy.services;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import projetos.test.Cinephy.entities.UserEntity;
@@ -37,13 +38,27 @@ public class UserService {
 
 
     public String loginUser(String email,String password){
-        Optional<UserEntity> user = userRepository.findUserByEmail(email);
+        UserEntity user = userRepository.findUserByEmail(email);
 
-        if(user.isEmpty() || !encoder.matches(password,user.get().getPassword())){
+        if(user == null || !encoder.matches(password,user.getPassword())){
             throw new RuntimeException("Ocorreu um erro na autenticação");
         }
 
-        return jwtUtil.generateToken(user.get());
+        return jwtUtil.generateToken(user);
 
+    }
+
+    public UserEntity getUserFromToken(String token){
+
+        if(token.startsWith("Bearer ")){
+            token = token.substring(7);
+        }
+
+        String email = jwtUtil.getUserFromToken(token);
+        UserEntity authUser = userRepository.findUserByEmail(email);
+        if(authUser == null){
+            throw new RuntimeException("Ocorreu um erro na autenticação");
+        }
+        return authUser;
     }
 }
