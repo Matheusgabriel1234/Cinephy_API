@@ -8,6 +8,7 @@ import projetos.test.Cinephy.DTOs.OmdbSearchResponse;
 import projetos.test.Cinephy.entities.MovieEntity;
 import projetos.test.Cinephy.entities.UserEntity;
 import projetos.test.Cinephy.services.MovieService;
+import projetos.test.Cinephy.services.OmdbService;
 import projetos.test.Cinephy.services.UserService;
 
 import java.util.List;
@@ -19,15 +20,17 @@ public class MovieController {
 
     private final MovieService movieService;
     private final UserService userService;
+    private final OmdbService omdbService;
 
-    public MovieController(MovieService movieService, UserService userService) {
+    public MovieController(MovieService movieService, UserService userService, OmdbService omdbService) {
         this.movieService = movieService;
         this.userService = userService;
+        this.omdbService = omdbService;
     }
 
     @GetMapping("/search")
     public ResponseEntity<?> searchMovies(@RequestParam String title){
-        OmdbSearchResponse searchResponse = movieService.searchMovie(title);
+        OmdbSearchResponse searchResponse = omdbService.searchMovie(title);
         return new ResponseEntity<>(searchResponse, HttpStatus.OK);
     };
 
