@@ -3,6 +3,7 @@ package projetos.test.Cinephy.services;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import projetos.test.Cinephy.DTOs.ReviewDTO;
+import projetos.test.Cinephy.Exceptions.InvalidReviewException;
 import projetos.test.Cinephy.entities.MovieEntity;
 import projetos.test.Cinephy.entities.ReviewEntity;
 import projetos.test.Cinephy.entities.UserEntity;
@@ -29,13 +30,13 @@ private final OmdbService omdbService;
         MovieEntity movie = movieRepository.findByImdbId(movieId).orElseGet(() -> omdbService.fetchAndSave(movieId));
 
         if(reviewDTO.getRating() < 0 || reviewDTO.getRating() > 10 ){
-            throw new RuntimeException("A avaliação deve ser de 0 a 10");
+            throw new InvalidReviewException("A avaliação deve ser de 0 a 10");
         }
 
         boolean alreadyReviewed = reviewRepository.existsByUserAndMovie(user,movie);
 
         if(alreadyReviewed){
-            throw new RuntimeException("Voce ja avaliou este filme");
+            throw new InvalidReviewException("Voce ja avaliou este filme");
         }
 
         ReviewEntity review = new ReviewEntity();

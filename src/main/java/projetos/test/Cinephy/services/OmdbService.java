@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import projetos.test.Cinephy.DTOs.MoviesDetailsDTO;
 import projetos.test.Cinephy.DTOs.OmdbResponse;
 import projetos.test.Cinephy.DTOs.OmdbSearchResponse;
+import projetos.test.Cinephy.Exceptions.MovieNotFoundException;
 import projetos.test.Cinephy.entities.MovieEntity;
 import projetos.test.Cinephy.entities.UserEntity;
 import projetos.test.Cinephy.repository.MovieRepository;
@@ -38,7 +39,7 @@ public class OmdbService {
         OmdbResponse response = restTemplate.getForObject(url,OmdbResponse.class);
 
         if (response == null || response.getImdbId() == null || response.getTitle() == null) {
-            throw new RuntimeException("Filme não encontrado na API OMDb com o IMDb ID: " + imdbID);
+            throw new MovieNotFoundException("Filme não encontrado na API OMDb com o IMDb ID: " + imdbID);
         }
 
         MovieEntity movie = new MovieEntity();
@@ -57,7 +58,7 @@ public class OmdbService {
         OmdbSearchResponse response = restTemplate.getForObject(url, OmdbSearchResponse.class);
 
         if (response == null || "False".equalsIgnoreCase(response.getResponse())) {
-            throw new RuntimeException("Erro na busca: " + (response != null ? response.getError() : "Resposta nula"));
+            throw new MovieNotFoundException("Erro na busca: " + (response != null ? response.getError() : "Resposta nula"));
         }
         return response;
     }
@@ -68,7 +69,7 @@ public class OmdbService {
         MoviesDetailsDTO response = restTemplate.getForObject(url, MoviesDetailsDTO.class);
 
         if(response == null){
-            throw new RuntimeException("Filme não encontrado");
+            throw new MovieNotFoundException("Filme não encontrado");
         }
 
         MoviesDetailsDTO movie = new MoviesDetailsDTO();

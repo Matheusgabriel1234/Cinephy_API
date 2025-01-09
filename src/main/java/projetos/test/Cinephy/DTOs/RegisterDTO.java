@@ -1,9 +1,7 @@
 package projetos.test.Cinephy.DTOs;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -14,6 +12,8 @@ public class RegisterDTO {
 
     @Size(min = 8,message = "A senha deve conter oito caracteres")
     private String password;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @NotBlank(message = "A data de nascimento é obrigatória")
     private String birthDate;
     @NotBlank(message = "O nome de usuario é obrigatório")

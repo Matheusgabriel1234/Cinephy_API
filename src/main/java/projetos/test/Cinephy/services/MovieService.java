@@ -1,6 +1,8 @@
 package projetos.test.Cinephy.services;
 
 import org.springframework.stereotype.Service;
+import projetos.test.Cinephy.Exceptions.InvalidMovieInTop10Exception;
+import projetos.test.Cinephy.Exceptions.MovieNotFoundException;
 import projetos.test.Cinephy.entities.MovieEntity;
 import projetos.test.Cinephy.entities.UserEntity;
 import projetos.test.Cinephy.repository.MovieRepository;
@@ -29,15 +31,15 @@ public class MovieService {
         MovieEntity movie = movieRepository.findByImdbId(imdbId).orElseGet(() -> omdbService.fetchAndSave(imdbId));
 
         if(movie == null){
-            throw new RuntimeException("Esse filme não está registrada na Api");
+            throw new MovieNotFoundException("Esse filme não está registrada na Api");
         }
 
         if (user.getTopMovies().size() >= 10) {
-         throw new RuntimeException("Voce ja possui 10 filmes na lista");
+         throw new InvalidMovieInTop10Exception("Voce ja possui 10 filmes na lista");
         }
 
         if(user.getTopMovies().contains(movie)){
-            throw new RuntimeException("Esse filme já está no top 10");
+            throw new InvalidMovieInTop10Exception("Esse filme já está no top 10");
         }
         user.getTopMovies().add(movie);
         userRepository.save(user);

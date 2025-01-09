@@ -1,5 +1,6 @@
 package projetos.test.Cinephy.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projetos.test.Cinephy.DTOs.LoginDTO;
@@ -21,14 +22,14 @@ public class AuthController{
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterDTO register){
+    public ResponseEntity<String> register(@RequestBody @Valid RegisterDTO register){
         LocalDate parsedDate = LocalDate.parse(register.getBirthDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         service.registerUser(register.getPassword(),register.getEmail(),parsedDate, register.getNickName());
         return ResponseEntity.ok("Usuario registrado com sucesso!!!");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> token(@RequestBody LoginDTO login){
+    public ResponseEntity<String> token(@RequestBody @Valid LoginDTO login){
         String token = service.loginUser(login.getEmail(),login.getPassword());
         return ResponseEntity.ok(token);
     }
