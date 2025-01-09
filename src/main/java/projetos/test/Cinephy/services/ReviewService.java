@@ -1,5 +1,6 @@
 package projetos.test.Cinephy.services;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import projetos.test.Cinephy.DTOs.ReviewDTO;
 import projetos.test.Cinephy.entities.MovieEntity;
@@ -18,7 +19,7 @@ private final MovieRepository movieRepository;
 private final ReviewRepository reviewRepository;
 private final OmdbService omdbService;
 
-    public ReviewService(MovieRepository movieRepository, ReviewRepository reviewRepository, OmdbService omdbService) {
+    public ReviewService(MovieRepository movieRepository, ReviewRepository reviewRepository, @Lazy OmdbService omdbService) {
         this.movieRepository = movieRepository;
         this.reviewRepository = reviewRepository;
         this.omdbService = omdbService;
@@ -47,8 +48,8 @@ private final OmdbService omdbService;
         return new ReviewDTO( review.getComment(),review.getRating(),user.getEmail());
     }
 
-    public List<ReviewDTO> getReviewForMovie(String imdbId){
-        MovieEntity movie = movieRepository.findByImdbId(imdbId).orElseThrow(() -> new RuntimeException("Esse filme não foi encontrado"));
+    public List<ReviewDTO> getReviewForMovie(String imdbID){
+        MovieEntity movie = movieRepository.findByImdbId(imdbID).orElseThrow(() -> new RuntimeException("Esse filme não foi encontrado"));
 
 
         return movie.getReviews().stream().map(review -> new ReviewDTO(

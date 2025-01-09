@@ -6,6 +6,7 @@ import projetos.test.Cinephy.entities.ReviewEntity;
 import java.util.List;
 
 public class MoviesDetailsDTO {
+    @JsonProperty("imdbID")
     private String imdbId;
 
     @JsonProperty("Title")

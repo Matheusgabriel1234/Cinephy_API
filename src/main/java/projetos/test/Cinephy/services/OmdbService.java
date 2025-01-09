@@ -12,6 +12,8 @@ import projetos.test.Cinephy.entities.UserEntity;
 import projetos.test.Cinephy.repository.MovieRepository;
 import projetos.test.Cinephy.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class OmdbService {
 
@@ -20,19 +22,23 @@ public class OmdbService {
     private final String apiKey;
     private final ReviewService reviewService;
 
-    public OmdbService(MovieRepository movieRepository, RestTemplate restTemplate, @Value("${omdb.api.key}") String apiKey, @Lazy ReviewService reviewService) {
+    public OmdbService(MovieRepository movieRepository, RestTemplate restTemplate, @Value("${omdb.api.key}") String apiKey, ReviewService reviewService) {
         this.movieRepository = movieRepository;
         this.restTemplate = restTemplate;
         this.apiKey = apiKey;
         this.reviewService = reviewService;
     }
 
-    public MovieEntity fetchAndSave(String imdbId){
-        String url = String.format("http://www.omdbapi.com/?apikey=%s&i=%s", apiKey, imdbId);
+    public MovieEntity fetchAndSave(String imdbID){
+        Optional<MovieEntity> existingMovie = movieRepository.findByImdbId(imdbID);
+        if (existingMovie.isPresent()) {
+            return existingMovie.get();
+        }
+        String url = String.format("http://www.omdbapi.com/?apikey=%s&i=%s", apiKey, imdbID);
         OmdbResponse response = restTemplate.getForObject(url,OmdbResponse.class);
 
         if (response == null || response.getImdbId() == null || response.getTitle() == null) {
-            throw new RuntimeException("Filme não encontrado na API OMDb com o IMDb ID: " + imdbId);
+            throw new RuntimeException("Filme não encontrado na API OMDb com o IMDb ID: " + imdbID);
         }
 
         MovieEntity movie = new MovieEntity();
@@ -56,8 +62,9 @@ public class OmdbService {
         return response;
     }
 
-    public MoviesDetailsDTO getMovieDetails(String imdbId){
-        String url = String.format("http://www.omdbapi.com/?apikey=%s&i=%s",apiKey,imdbId);
+    public MoviesDetailsDTO getMovieDetails(String imdbID){
+        fetchAndSave(imdbID);
+        String url = String.format("http://www.omdbapi.com/?apikey=%s&i=%s",apiKey,imdbID);
         MoviesDetailsDTO response = restTemplate.getForObject(url, MoviesDetailsDTO.class);
 
         if(response == null){
@@ -72,7 +79,7 @@ public class OmdbService {
         movie.setImdbId(response.getImdbId());
         movie.setRated(response.getRated());
         movie.setTitle(response.getTitle());
-        movie.setReviews(reviewService.getReviewForMovie(imdbId));
+        movie.setReviews(reviewService.getReviewForMovie(imdbID));
 
         return movie;
     }

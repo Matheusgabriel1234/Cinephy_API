@@ -20,9 +20,7 @@ public class ReviewEntity {
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private MovieEntity movie;
-
     private String comment;
-
     private double rating;
 
     public ReviewEntity(Long id, UserEntity user, MovieEntity movie, String comment, double rating) {
@@ -71,6 +69,10 @@ public class ReviewEntity {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
