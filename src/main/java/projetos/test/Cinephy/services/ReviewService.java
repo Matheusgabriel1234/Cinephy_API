@@ -18,16 +18,16 @@ public class ReviewService {
 
 private final MovieRepository movieRepository;
 private final ReviewRepository reviewRepository;
-private final OmdbService omdbService;
+private final MovieService movieService;
 
-    public ReviewService(MovieRepository movieRepository, ReviewRepository reviewRepository, @Lazy OmdbService omdbService) {
+    public ReviewService(MovieRepository movieRepository, ReviewRepository reviewRepository, MovieService movieService) {
         this.movieRepository = movieRepository;
         this.reviewRepository = reviewRepository;
-        this.omdbService = omdbService;
+        this.movieService = movieService;
     }
 
     public ReviewDTO addReview(String movieId, UserEntity user, ReviewDTO reviewDTO){
-        MovieEntity movie = movieRepository.findByImdbId(movieId).orElseGet(() -> omdbService.fetchAndSave(movieId));
+        MovieEntity movie = movieRepository.findByImdbId(movieId).orElseGet(() -> movieService.fetchAndSave(movieId));
 
         if(reviewDTO.getRating() < 0 || reviewDTO.getRating() > 10 ){
             throw new InvalidReviewException("A avaliação deve ser de 0 a 10");

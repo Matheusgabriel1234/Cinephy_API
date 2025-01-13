@@ -17,6 +17,7 @@ public class MovieEntity {
     private String imdbId;
 
     private String title;
+    @Column(name = "release_year")
     private String year;
     private String type;
     @OneToMany(mappedBy = "movie",fetch = FetchType.LAZY, cascade = CascadeType.ALL)

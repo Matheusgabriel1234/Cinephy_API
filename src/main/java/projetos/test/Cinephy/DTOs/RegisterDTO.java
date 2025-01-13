@@ -7,9 +7,10 @@ import java.time.LocalDate;
 
 public class RegisterDTO {
     @Email
-    @NotBlank(message = "O email não pode ser nulo")
+    @NotBlank(message = "O email não pode estar vazio")
     private String email;
 
+    @NotBlank(message = "A senha não pode estar vazia")
     @Size(min = 8,message = "A senha deve conter oito caracteres")
     private String password;
 
