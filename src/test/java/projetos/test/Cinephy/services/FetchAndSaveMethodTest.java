@@ -23,7 +23,6 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(properties = "spring.profiles.active=test")
-@ExtendWith(MockitoExtension.class)
 public class FetchAndSaveMethodTest {
     @InjectMocks
     private MovieService movieService;
