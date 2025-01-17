@@ -56,6 +56,10 @@ public class UserEntity implements UserDetails {
     public UserEntity() {
     }
 
+    public UserEntity(String email) {
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

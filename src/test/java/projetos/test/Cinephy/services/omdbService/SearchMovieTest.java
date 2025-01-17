@@ -1,22 +1,18 @@
-package projetos.test.Cinephy.services;
+package projetos.test.Cinephy.services.omdbService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 import projetos.test.Cinephy.DTOs.OmdbSearchResponse;
 import projetos.test.Cinephy.Exceptions.MovieNotFoundException;
-import projetos.test.Cinephy.repository.MovieRepository;
-import projetos.test.Cinephy.repository.UserRepository;
-
-import java.util.Optional;
+import projetos.test.Cinephy.services.MovieService;
+import projetos.test.Cinephy.services.OmdbService;
+import projetos.test.Cinephy.services.ReviewService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -50,7 +46,7 @@ public class SearchMovieTest {
 
 
     @Test
-    void testSearchMovie_sucess(){
+    void testSearchMovie_success(){
         String title = "Test Movie";
         String url = String.format("http://www.omdbapi.com/?apikey=%s&s=%s",apiKey,title);
 

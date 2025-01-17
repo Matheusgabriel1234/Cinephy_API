@@ -1,12 +1,10 @@
-package projetos.test.Cinephy.services;
+package projetos.test.Cinephy.services.movieService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
@@ -15,6 +13,7 @@ import projetos.test.Cinephy.Exceptions.MovieNotFoundException;
 import projetos.test.Cinephy.entities.MovieEntity;
 import projetos.test.Cinephy.repository.MovieRepository;
 import projetos.test.Cinephy.repository.UserRepository;
+import projetos.test.Cinephy.services.MovieService;
 
 import java.util.Optional;
 
