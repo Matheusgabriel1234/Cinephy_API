@@ -36,10 +36,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected  void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain filterChain) throws IOException, ServletException {
         String path = req.getRequestURI();
 
-        if(path.startsWith("/api/auth")){
+        if(path.startsWith("/api/auth") || path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs") || path.startsWith("/webjars") || path.startsWith("/actuator")){
             filterChain.doFilter(req,res);
             return;
         }
+
 
         try {
             String jwt = parseJwt(req);

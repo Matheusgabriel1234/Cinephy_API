@@ -24,7 +24,6 @@ public class UserEntity implements UserDetails {
     private Long id;
 
     private String nickName;
-
     @Past
     @JsonFormat(pattern = "dd/MM/yyyy")
     @NotNull

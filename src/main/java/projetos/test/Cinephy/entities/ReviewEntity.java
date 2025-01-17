@@ -35,6 +35,7 @@ public class ReviewEntity {
 
     }
 
+
     public Long getId() {
         return id;
     }
