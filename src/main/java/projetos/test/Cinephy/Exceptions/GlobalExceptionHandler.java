@@ -59,11 +59,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UnauthorizedActionException.class)
-    public ResponseEntity<ErrorResponse> handleReviewNotFoundException(UnauthorizedActionException err, HttpServletRequest req){
+    public ResponseEntity<ErrorResponse> handleUnauthorizedActionException(UnauthorizedActionException err, HttpServletRequest req){
         ErrorResponse error = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.UNAUTHORIZED.value(),
                 "Action Not Authorized",err.getMessage(),req.getRequestURI(),null);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleEmailAlreadyExistsException(EmailAlreadyExistsException err, HttpServletRequest req){
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Email Already exists",err.getMessage(),req.getRequestURI(),null);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

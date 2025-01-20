@@ -3,6 +3,7 @@ package projetos.test.Cinephy.services;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import projetos.test.Cinephy.Exceptions.EmailAlreadyExistsException;
 import projetos.test.Cinephy.entities.UserEntity;
 import projetos.test.Cinephy.repository.UserRepository;
 import projetos.test.Cinephy.security.JwtUtils;
@@ -31,6 +32,10 @@ public class UserService {
         user.setEmail(email);
         user.setBirthDate(birthDate);
         user.setNickName(nickname);
+
+        if(userRepository.existsByEmail(email)){
+            throw new EmailAlreadyExistsException("Esse email ja foi registrado");
+        }
 
         return userRepository.save(user);
 
