@@ -23,6 +23,10 @@ public class MovieEntity {
     @OneToMany(mappedBy = "movie",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReviewEntity> reviews = new ArrayList<>();
 
+    private String rated;
+    private String genre;
+    private String boxOffice;
+
 
     public MovieEntity(Long id, String imdbId, String title, String year, String type, List<ReviewEntity> reviews) {
         this.id = id;
@@ -31,7 +35,6 @@ public class MovieEntity {
         this.year = year;
         this.type = type;
         this.reviews = reviews;
-        ;
     }
 
     public MovieEntity() {
@@ -83,6 +86,29 @@ public class MovieEntity {
     }
 
 
+    public String getRated() {
+        return rated;
+    }
+
+    public void setRated(String rated) {
+        this.rated = rated;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getBoxOffice() {
+        return boxOffice;
+    }
+
+    public void setBoxOffice(String boxOffice) {
+        this.boxOffice = boxOffice;
+    }
 
     @Override
     public boolean equals(Object o) {

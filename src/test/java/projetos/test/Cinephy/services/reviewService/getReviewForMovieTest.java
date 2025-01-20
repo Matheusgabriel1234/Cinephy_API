@@ -50,8 +50,8 @@ public class getReviewForMovieTest {
         MovieEntity movie = new MovieEntity();
         movie.setImdbId(imdbId);
 
-        UserEntity user1 = new UserEntity("user1@gmail.com");
-        UserEntity user2 = new UserEntity("user2@gmail.com");
+        UserEntity user1 = new UserEntity("Test1");
+        UserEntity user2 = new UserEntity("Test2");
 
         ReviewEntity review1 = new ReviewEntity(null,user1, movie, "Good Movie",8);
         ReviewEntity review2 = new ReviewEntity(null,user2, movie, "Good movie",8);
@@ -68,11 +68,11 @@ public class getReviewForMovieTest {
 
         assertEquals("Good Movie", result.get(0).getComment());
         assertEquals(8.0, result.get(0).getRating(), 0.01);
-        assertEquals("user1@gmail.com", result.get(0).getUser());
+        assertEquals("Test1", result.get(0).getUser());
 
         assertEquals("Good movie", result.get(1).getComment());
         assertEquals(8, result.get(1).getRating(), 0.01);
-        assertEquals("user2@gmail.com", result.get(1).getUser());
+        assertEquals("Test2", result.get(1).getUser());
     }
 
 

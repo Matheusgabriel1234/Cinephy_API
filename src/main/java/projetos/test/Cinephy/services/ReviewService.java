@@ -49,7 +49,7 @@ private final MovieService movieService;
         review.setMovie(movie);
         reviewRepository.save(review);
 
-        return new ReviewDTO( user.getEmail(),review.getRating(),review.getComment());
+        return new ReviewDTO( user.getNickName(),review.getRating(),review.getComment());
     }
 
     public List<ReviewDTO> getReviewForMovie(String imdbID){
@@ -57,7 +57,7 @@ private final MovieService movieService;
 
 
         return movie.getReviews().stream().map(review -> new ReviewDTO(
-                review.getUser().getEmail(),
+                review.getUser().getNickName(),
                 review.getRating(),
                 review.getComment()
 
@@ -91,7 +91,7 @@ private final MovieService movieService;
 
         reviewRepository.save(existingReview);
 
-        return new ReviewDTO(user.getEmail(),existingReview.getRating(),existingReview.getComment());
+        return new ReviewDTO(user.getNickName(),existingReview.getRating(),existingReview.getComment());
     }
 
 

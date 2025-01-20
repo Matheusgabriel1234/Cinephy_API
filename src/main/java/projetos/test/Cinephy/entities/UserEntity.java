@@ -55,8 +55,8 @@ public class UserEntity implements UserDetails {
     public UserEntity() {
     }
 
-    public UserEntity(String email) {
-        this.email = email;
+    public UserEntity(String nickName) {
+        this.nickName = nickName;
     }
 
     public Long getId() {
