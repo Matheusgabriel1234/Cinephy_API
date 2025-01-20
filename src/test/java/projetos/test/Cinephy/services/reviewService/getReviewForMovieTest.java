@@ -66,13 +66,13 @@ public class getReviewForMovieTest {
 
         assertEquals(2, result.size(), "There should be 2 reviews.");
 
-        assertEquals("user1@gmail.com", result.get(0).getComment());
+        assertEquals("Good Movie", result.get(0).getComment());
         assertEquals(8.0, result.get(0).getRating(), 0.01);
-        assertEquals("Good Movie", result.get(0).getUser());
+        assertEquals("user1@gmail.com", result.get(0).getUser());
 
-        assertEquals("user2@gmail.com", result.get(1).getComment());
+        assertEquals("Good movie", result.get(1).getComment());
         assertEquals(8, result.get(1).getRating(), 0.01);
-        assertEquals("Good movie", result.get(1).getUser());
+        assertEquals("user2@gmail.com", result.get(1).getUser());
     }
 
 

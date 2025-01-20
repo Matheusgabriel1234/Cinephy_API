@@ -1,6 +1,7 @@
 package projetos.test.Cinephy.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import projetos.test.Cinephy.DTOs.ReviewDTO;
 import projetos.test.Cinephy.entities.UserEntity;
@@ -28,4 +29,19 @@ public class ReviewController {
         ReviewDTO review = reviewService.addReview(imdbID,authUser,reviewDTO);
         return ResponseEntity.ok(review);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteYourReview(@PathVariable Long id,@RequestHeader("Authorization") String token){
+     UserEntity authUser = userService.getUserFromToken(token);
+     reviewService.deleteYourReview(id,authUser);
+     return ResponseEntity.noContent().build();
+    };
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReviewDTO> updateYourReview(@PathVariable Long id,@RequestHeader("Authorization") String token,@RequestBody ReviewDTO updateReview) {
+        UserEntity authUser = userService.getUserFromToken(token);
+        ReviewDTO review = reviewService.editReview(id, authUser, updateReview);
+        return ResponseEntity.ok().body(review);
+    }
+
 }

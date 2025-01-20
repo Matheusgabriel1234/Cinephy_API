@@ -48,4 +48,22 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 
     }
+
+    @ExceptionHandler(ReviewNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleReviewNotFoundException(ReviewNotFoundException err, HttpServletRequest req){
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Review Not Found",err.getMessage(),req.getRequestURI(),null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(UnauthorizedActionException.class)
+    public ResponseEntity<ErrorResponse> handleReviewNotFoundException(UnauthorizedActionException err, HttpServletRequest req){
+        ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.UNAUTHORIZED.value(),
+                "Action Not Authorized",err.getMessage(),req.getRequestURI(),null);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
 }

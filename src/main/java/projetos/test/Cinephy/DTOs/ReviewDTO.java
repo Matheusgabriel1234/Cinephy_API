@@ -5,12 +5,12 @@ public class ReviewDTO {
    private double rating;
    private String comment;
 
-
-    public ReviewDTO(String comment, double rating, String user) {
+    public ReviewDTO(String user, double rating, String comment) {
         this.user = user;
         this.rating = rating;
         this.comment = comment;
     }
+
 
     public String getComment() {
         return comment;
