@@ -86,9 +86,7 @@ public class MovieService {
         movie.setType(response.getType());
         movie.setImdbId(response.getImdbId());
         movie.setYear(response.getYear());
-        movie.setRated(response.getRated());
-        movie.setGenre(response.getGenre());
-        movie.setBoxOffice(response.getBoxOffice());
+
 
 
         return movieRepository.save(movie);

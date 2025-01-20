@@ -47,12 +47,9 @@ public class OmdbService {
         }
 
         MoviesDetailsDTO movie = new MoviesDetailsDTO();
-        movie.setBoxOffice(response.getBoxOffice());
-        movie.setGenre(response.getGenre());
         movie.setType(response.getType());
         movie.setYear(response.getYear());
         movie.setImdbId(response.getImdbId());
-        movie.setRated(response.getRated());
         movie.setTitle(response.getTitle());
         movie.setReviews(reviewService.getReviewForMovie(imdbID));
 

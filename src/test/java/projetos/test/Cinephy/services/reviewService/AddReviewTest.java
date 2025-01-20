@@ -52,7 +52,7 @@ public class AddReviewTest {
     void addReviewTest_success(){
         String imdbID = "tt9999999";
         UserEntity user = new UserEntity();
-        ReviewDTO review = new ReviewDTO("Filme incrivel",10,user.getEmail());
+        ReviewDTO review = new ReviewDTO(user.getNickName(),10,"Filme incrivel");
 
         MovieEntity movie = new MovieEntity();
         movie.setImdbId(imdbID);

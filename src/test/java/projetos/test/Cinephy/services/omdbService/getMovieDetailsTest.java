@@ -142,11 +142,8 @@ public class getMovieDetailsTest {
 
         assertNotNull(result, "The result should not be null.");
         assertEquals(imdbID, result.getImdbId(), "IMDb ID should match.");
-        assertNull(result.getBoxOffice(), "Box Office should be null.");
-        assertNull(result.getGenre(), "Genre should be null.");
         assertNull(result.getType(), "Type should be null.");
         assertNull(result.getYear(), "Year should be null.");
-        assertNull(result.getRated(), "Rated should be null.");
         assertNull(result.getTitle(), "Title should be null.");
     }
 
@@ -158,31 +155,25 @@ public class getMovieDetailsTest {
 
     private MoviesDetailsDTO createMockMovieDetails(String imdbID) {
         MoviesDetailsDTO movieDetails = new MoviesDetailsDTO();
-        movieDetails.setBoxOffice("$1,000,000");
-        movieDetails.setGenre("Comedy");
         movieDetails.setType("movie");
         movieDetails.setYear("2021");
         movieDetails.setImdbId(imdbID);
-        movieDetails.setRated("PG-13");
         movieDetails.setTitle("Test Movie");
         return movieDetails;
     }
 
     private List<ReviewDTO> createMockReviews() {
         return List.of(
-                new ReviewDTO("Amazing movie!", 5.0, "user1@example.com"),
-                new ReviewDTO("Really good.", 4.5, "user2@example.com")
+                new ReviewDTO("user1@example.com", 5.0,"Amazing movie!" ),
+                new ReviewDTO("user2@example.com", 4.5, "Really good.")
         );
     }
 
 
     private void assertMovieDetails(MoviesDetailsDTO result, String imdbID) {
-        assertEquals("$1,000,000", result.getBoxOffice(), "Box Office value should match.");
-        assertEquals("Comedy", result.getGenre(), "Genre should match.");
         assertEquals("movie", result.getType(), "Type should match.");
         assertEquals("2021", result.getYear(), "Year should match.");
         assertEquals(imdbID, result.getImdbId(), "IMDb ID should match.");
-        assertEquals("PG-13", result.getRated(), "Rated should match.");
         assertEquals("Test Movie", result.getTitle(), "Title should match.");
     }
 

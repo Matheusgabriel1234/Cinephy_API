@@ -51,9 +51,6 @@ void testFetchAndSave_NewMovieSucess() {
     mockResponse.setType("Comedy");
     mockResponse.setTitle("Test Movie Dummy");
     mockResponse.setYear("2011");
-    mockResponse.setGenre("Comedy");
-    mockResponse.setRated("PG-13");
-    mockResponse.setBoxOffice("$100.000.000");
     mockResponse.setImdbId(imdbID);
 
     when(movieRepository.findByImdbId(imdbID)).thenReturn(Optional.empty());

@@ -17,15 +17,6 @@ public class OmdbResponse {
     @JsonProperty("Year")
     private String year;
 
-    @JsonProperty("Rated")
-    private String rated;
-
-    @JsonProperty("Genre")
-    private String genre;
-
-    @JsonProperty("BoxOffice")
-    private String boxOffice;
-
 
 
     public String getImdbId() {
@@ -60,27 +51,5 @@ public class OmdbResponse {
         this.year = year;
     }
 
-    public String getRated() {
-        return rated;
-    }
 
-    public void setRated(String rated) {
-        this.rated = rated;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getBoxOffice() {
-        return boxOffice;
-    }
-
-    public void setBoxOffice(String boxOffice) {
-        this.boxOffice = boxOffice;
-    }
 }
