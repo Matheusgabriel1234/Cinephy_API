@@ -6,39 +6,91 @@ Funcionalidades Principais
 
 Filmes
 
-Busca por Título:Endpoint: GET /api/movies/searchBusca filmes por título usando a OMDb API.
+Busca por Título:
 
-Detalhes do Filme:Endpoint: GET /api/movies/details/{imdbId}Obtém detalhes de um filme específico a partir do imdbId.
+Endpoint: GET /api/movies/search
 
-Top 10 de Filmes por Usuário:
+Descrição: Busca filmes por título usando a OMDb API.
 
-Adicionar Filme ao Top 10:Endpoint: POST /api/movies/top10/{imdbId}Adiciona um filme ao Top 10 de um usuário autenticado.
+Detalhes do Filme:
 
-Remover Filme do Top 10:Endpoint: DELETE /api/movies/top10/{imdbId}Remove um filme do Top 10 de um usuário autenticado.
+Endpoint: GET /api/movies/details/{imdbId}
 
-Listar Top 10:Endpoint: GET /api/movies/top10Retorna a lista dos 10 melhores filmes de um usuário autenticado.
+Descrição: Obtém detalhes de um filme específico a partir do imdbId.
+
+Top 10 de Filmes por Usuário
+
+Adicionar Filme ao Top 10:
+
+Endpoint: POST /api/movies/top10/{imdbId}
+
+Descrição: Adiciona um filme ao Top 10 de um usuário autenticado.
+
+Remover Filme do Top 10:
+
+Endpoint: DELETE /api/movies/top10/{imdbId}
+
+Descrição: Remove um filme do Top 10 de um usuário autenticado.
+
+Listar Top 10:
+
+Endpoint: GET /api/movies/top10
+
+Descrição: Retorna a lista dos 10 melhores filmes de um usuário autenticado.
 
 Avaliações
 
-Adicionar Avaliação:Endpoint: POST /api/reviews/{imdbId}Adiciona uma avaliação de um filme com rating e comentário.
+Adicionar Avaliação:
 
-Editar Avaliação:Endpoint: PUT /api/reviews/{id}Edita uma avaliação existente de um filme.
+Endpoint: POST /api/reviews/{imdbId}
 
-Remover Avaliação:Endpoint: DELETE /api/reviews/{id}Remove uma avaliação de um filme realizada por um usuário autenticado.
+Descrição: Adiciona uma avaliação de um filme com rating e comentário.
 
-Listar Avaliações de um Filme:Endpoint: GET /api/movies/details/{imdbId}Retorna todas as avaliações de um filme, incluindo os comentários e notas.
+Editar Avaliação:
+
+Endpoint: PUT /api/reviews/{id}
+
+Descrição: Edita uma avaliação existente de um filme.
+
+Remover Avaliação:
+
+Endpoint: DELETE /api/reviews/{id}
+
+Descrição: Remove uma avaliação de um filme realizada por um usuário autenticado.
+
+Listar Avaliações de um Filme:
+
+Endpoint: GET /api/movies/details/{imdbId}
+
+Descrição: Retorna todas as avaliações de um filme, incluindo os comentários e notas.
 
 Usuários
 
-Registrar Usuário:Endpoint: POST /api/auth/registerRegistra um novo usuário com email, senha, nickname e data de nascimento.
+Registrar Usuário:
 
-Login:Endpoint: POST /api/auth/loginRealiza autenticação e retorna um token JWT para acesso autenticado.
+Endpoint: POST /api/auth/register
 
-Obter Dados do Usuário pelo Token:Função interna usada para autenticar e autorizar usuários em operações específicas.
+Descrição: Registra um novo usuário com email, senha, nickname e data de nascimento.
+
+Login:
+
+Endpoint: POST /api/auth/login
+
+Descrição: Realiza autenticação e retorna um token JWT para acesso autenticado.
+
+Obter Dados do Usuário pelo Token:
+
+Descrição: Função interna usada para autenticar e autorizar usuários em operações específicas.
 
 Detalhes de Implementação
 
-Integração com OMDb API:Usa a OMDb API para buscar dados de filmes. Endpoints de busca e detalhes são diferenciados. O mapeamento dos campos do JSON da API é feito nas classes OmdbResponse e MoviesDetailsDTO.
+Integração com OMDb API:
+
+Usa a OMDb API para buscar dados de filmes.
+
+Endpoints de busca e detalhes são diferenciados.
+
+O mapeamento dos campos do JSON da API é feito nas classes OmdbResponse e MoviesDetailsDTO.
 
 Autenticação com JWT:
 
@@ -62,20 +114,28 @@ Avaliações e modificações podem ser feitas apenas pelos autores.
 
 Configuração
 
-Chave OMDb API:Defina a variável omdb.api.key no application.properties.
+Chave OMDb API:
 
-Banco de Dados:Configure o PostgreSQL no application.properties:
+Defina a variável omdb.api.key no application.properties.
+
+Banco de Dados:
+
+Configure o PostgreSQL no application.properties:
 
 spring.datasource.url=jdbc:postgresql://localhost:5432/cinephy
-spring.datasource.username=<seu-usuario>
-spring.datasource.password=<sua-senha>
+spring.datasource.username=
+spring.datasource.password=
 
-Autenticação JWT:Defina o segredo JWT no application.properties:
+Autenticação JWT:
 
-jwt.secret=<key-jwt>
+Defina o segredo JWT no application.properties:
+
+jwt.secret=
 jwt.validation=360000
 
-Swagger:Documentação disponível em /swagger-ui.html.
+Swagger:
+
+Documentação disponível em /swagger-ui.html.
 
 Dependências
 
@@ -95,10 +155,7 @@ Clone o repositório.
 
 Configure as variáveis no application.properties.
 
-Execute o projeto com o comando:
-mvn spring-boot:run
-
-mvn spring-boot:run
+Execute o projeto com o comando: mvn spring-boot:run.
 
 Acesse a API em http://localhost:8080 (ou outra porta configurada).
 
