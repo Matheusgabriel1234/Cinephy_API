@@ -55,6 +55,12 @@ public class MovieController {
     return ResponseEntity.ok("Filme adicionado ao seu top 10");
     }
 
+    @DeleteMapping("/top10/{imdbId}")
+    public ResponseEntity<Void> removeMovieFromTop10(@PathVariable String imdbId, @RequestHeader("Authorization") String token) {
+        UserEntity user = userService.getUserFromToken(token);
+        movieService.removeFromTop10(imdbId, user);
+        return ResponseEntity.noContent().build();
+    }
 
 
 

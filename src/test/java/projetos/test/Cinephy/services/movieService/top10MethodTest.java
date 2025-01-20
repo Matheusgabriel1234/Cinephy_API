@@ -131,6 +131,42 @@ public class top10MethodTest {
     }
 
 
+    @Test
+    void removeMovieFromTop10_success() {
+        String imdbId = "tt9999999";
+        UserEntity user = new UserEntity();
+        user.setTopMovies(new ArrayList<>());
+
+        MovieEntity movie = new MovieEntity();
+        movie.setImdbId(imdbId);
+        user.getTopMovies().add(movie);
+
+        when(movieRepository.findByImdbId(imdbId)).thenReturn(Optional.of(movie));
+
+        movieService.removeFromTop10(imdbId, user);
+
+        assertFalse(user.getTopMovies().contains(movie));
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    void removeMovieFromTop10_movieNotFound() {
+        String imdbId = "tt9999999";
+        UserEntity user = new UserEntity();
+        user.setTopMovies(new ArrayList<>());
+
+        when(movieRepository.findByImdbId(imdbId)).thenReturn(Optional.empty());
+
+        MovieNotFoundException exception = assertThrows(
+                MovieNotFoundException.class,
+                () -> movieService.removeFromTop10(imdbId, user)
+        );
+
+        assertEquals("Filme não encontrado na API OMDb com o IMDb ID: tt9999999", exception.getMessage());
+        verify(userRepository, never()).save(user);
+    }
+
+
 
 
 

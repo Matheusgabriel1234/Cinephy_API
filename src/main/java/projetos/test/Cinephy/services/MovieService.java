@@ -51,6 +51,24 @@ public class MovieService {
         userRepository.save(user);
     }
 
+    public void removeFromTop10(String imdbId,UserEntity user){
+        MovieEntity movie = movieRepository.findByImdbId(imdbId).orElseGet(() -> fetchAndSave(imdbId));
+
+        if(movie == null){
+            throw new MovieNotFoundException("Esse filme não está registrada na Api");
+        }
+
+        if (user.getTopMovies().size() >= 10) {
+            throw new InvalidMovieInTop10Exception("Voce ja possui 10 filmes na lista");
+        }
+
+
+
+        user.getTopMovies().remove(movie);
+        userRepository.save(user);
+    }
+
+
     public MovieEntity fetchAndSave(String imdbID){
         Optional<MovieEntity> existingMovie = movieRepository.findByImdbId(imdbID);
         if (existingMovie.isPresent()) {

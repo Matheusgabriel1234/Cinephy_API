@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 import projetos.test.Cinephy.DTOs.ReviewDTO;
+import projetos.test.Cinephy.Exceptions.InvalidMovieInTop10Exception;
 import projetos.test.Cinephy.Exceptions.InvalidReviewException;
 import projetos.test.Cinephy.entities.MovieEntity;
 import projetos.test.Cinephy.entities.UserEntity;
@@ -21,6 +22,7 @@ import projetos.test.Cinephy.services.ReviewService;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -98,6 +100,7 @@ public class AddReviewTest {
 
         assertEquals("Voce ja avaliou este filme",exception.getMessage());
     }
+
 
 
 
